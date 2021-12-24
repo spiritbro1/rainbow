@@ -17,12 +17,10 @@ import {
 import { Page, RowWithMargins } from '../components/layout';
 import networkInfo from '@rainbow-me/helpers/networkInfo';
 import {
-  useAccountEmptyState,
   useAccountSettings,
   useCoinListEdited,
   useInitializeDiscoverData,
   useInitializeWallet,
-  useIsWalletEthZero,
   useLoadGlobalLateData,
   usePortfolios,
   useUserAccounts,
@@ -56,7 +54,6 @@ export default function WalletScreen() {
   const { isCoinListEdited } = useCoinListEdited();
   const scrollViewTracker = useValue(0);
   const { isReadOnlyWallet } = useWallets();
-  const { isEmpty: isAccountEmpty } = useAccountEmptyState();
   const { network } = useAccountSettings();
   const { userAccounts } = useUserAccounts();
   const { portfolios, trackPortfolios } = usePortfolios();
@@ -65,8 +62,6 @@ export default function WalletScreen() {
   const walletReady = useSelector(
     ({ appState: { walletReady } }) => walletReady
   );
-
-  const isWalletEthZero = useIsWalletEthZero();
 
   const dispatch = useDispatch();
 
@@ -141,6 +136,7 @@ export default function WalletScreen() {
 
   const isLoadingAssets = useSelector(state => state.data.isLoadingAssets);
 
+  const showAddFunds = false;
   return (
     <WalletPage testID="wallet-screen">
       {ios && <StatusBar barStyle="dark-content" />}
@@ -148,7 +144,7 @@ export default function WalletScreen() {
       reattaching of react subviews */}
       <Animated.Code exec={scrollViewTracker} />
       <FabWrapper
-        disabled={isAccountEmpty || !!params?.emptyWallet}
+        disabled={showAddFunds || !!params?.emptyWallet}
         fabs={fabs}
         isCoinListEdited={isCoinListEdited}
         isReadOnlyWallet={isReadOnlyWallet}
@@ -164,10 +160,9 @@ export default function WalletScreen() {
         </HeaderOpacityToggler>
         <AssetList
           disableRefreshControl={isLoadingAssets}
-          isEmpty={isAccountEmpty || !!params?.emptyWallet}
-          isWalletEthZero={isWalletEthZero}
           network={network}
           scrollViewTracker={scrollViewTracker}
+          showAddFunds={showAddFunds}
         />
       </FabWrapper>
     </WalletPage>

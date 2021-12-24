@@ -16,8 +16,8 @@ const Container = styled(Column)(position.sizeAsObject('100%'));
 
 const EmptyAssetList = ({
   descendingOpacity,
-  isWalletEthZero,
   network,
+  showAddFunds,
   skeletonCount = 5,
   title,
   ...props
@@ -36,7 +36,7 @@ const EmptyAssetList = ({
 
   return (
     <ConditionalWrap
-      condition={isWalletEthZero}
+      condition={showAddFunds}
       wrap={children => (
         <ScrollView
           contentContainerStyle={{ height: '100%' }}
@@ -50,7 +50,7 @@ const EmptyAssetList = ({
     >
       <Container {...props}>
         <Centered flex={1}>
-          {isWalletEthZero ? (
+          {showAddFunds ? (
             <AddFundsInterstitial
               network={network}
               offsetY={interstitialOffset}
@@ -61,8 +61,8 @@ const EmptyAssetList = ({
               <Column cover>
                 {times(skeletonCount, index => (
                   <AssetListItemSkeleton
-                    animated={!isWalletEthZero}
-                    descendingOpacity={descendingOpacity || isWalletEthZero}
+                    animated
+                    descendingOpacity={descendingOpacity}
                     index={index}
                     key={`skeleton${index}`}
                   />

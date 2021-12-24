@@ -1,7 +1,6 @@
 import { getAccountLocal, saveAccountLocal } from './common';
 
 const accountAssetsDataVersion = '0.1.0';
-const accountEmptyVersion = '0.1.0';
 const assetPricesFromUniswapVersion = '0.1.0';
 const assetsVersion = '0.2.0';
 const purchaseTransactionsVersion = '0.2.0';
@@ -11,7 +10,6 @@ const uniqueTokensVersion = '0.2.1';
 
 const ACCOUNT_ASSETS_DATA = 'accountAssetsData';
 const ACCOUNT_INFO = 'accountInfo';
-const ACCOUNT_EMPTY = 'accountEmpty';
 const ASSET_PRICES_FROM_UNISWAP = 'assetPricesFromUniswap';
 const ASSETS = 'assets';
 const PURCHASE_TRANSACTIONS = 'purchaseTransactions';
@@ -56,41 +54,6 @@ export const getSavings = (accountAddress: any, network: any) =>
  */
 export const saveSavings = (savings: any, accountAddress: any, network: any) =>
   saveAccountLocal(SAVINGS, savings, accountAddress, network, savingsVersion);
-
-/**
- * @desc get account empty state
- * @param  {String}   [address]
- * @param  {String}   [network]
- * @return {Boolean}
- */
-export const getAccountEmptyState = (accountAddress: any, network: any) =>
-  getAccountLocal(
-    ACCOUNT_EMPTY,
-    accountAddress,
-    network,
-    // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'false' is not assignable to para... Remove this comment to see the full error message
-    false,
-    accountEmptyVersion
-  );
-
-/**
- * @desc save account empty state
- * @param  {Boolean}    [val]
- * @param  {String}   [address]
- * @param  {String}   [network]
- */
-export const saveAccountEmptyState = (
-  val: any,
-  accountAddress: any,
-  network: any
-) =>
-  saveAccountLocal(
-    ACCOUNT_EMPTY,
-    val,
-    accountAddress,
-    network,
-    accountEmptyVersion
-  );
 
 /**
  * @desc get assets
