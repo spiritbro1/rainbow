@@ -134,6 +134,7 @@ const withBriefBalanceSection = (
   return [
     {
       type: 'ASSETS_HEADER',
+      uid: 'assets-header',
       value: totalValue,
     },
     {
