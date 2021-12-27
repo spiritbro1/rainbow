@@ -12,6 +12,7 @@ import {
   sortBy,
 } from 'lodash';
 import { add, convertAmountToNativeDisplay, greaterThan } from './utilities';
+import { AssetTypes } from '@rainbow-me/entities';
 import store from '@rainbow-me/redux/store';
 import {
   ETH_ADDRESS,
@@ -57,7 +58,7 @@ const addEthPlaceholder = (
       decimals: 18,
       icon_url: ETH_ICON_URL,
       isCoin: true,
-      isPinned: pinnedCoins.includes('eth'),
+      isPinned: pinnedCoins.includes(ETH_ADDRESS),
       isSmall: false,
       name: 'Ethereum',
       native: {
@@ -76,13 +77,13 @@ const addEthPlaceholder = (
       },
       price: value,
       symbol: 'ETH',
-      type: 'token',
-      uniqueId: 'eth',
+      type: AssetTypes.token,
+      uniqueId: ETH_ADDRESS,
     };
 
-    return { addedEth: true, assets: concat([zeroEth], assets) };
+    return concat([zeroEth], assets);
   }
-  return { addedEth: false, assets };
+  return assets;
 };
 
 const getTotal = assets =>
@@ -109,7 +110,7 @@ export const buildCoinsList = (
     smallAssets = [],
     hiddenAssets = [];
 
-  const { addedEth, assets } = addEthPlaceholder(
+  const assets = addEthPlaceholder(
     sortedAssets,
     includePlaceholder,
     pinnedCoins,
@@ -186,7 +187,6 @@ export const buildCoinsList = (
   }
 
   return {
-    addedEth,
     assets: allAssets,
     smallBalancesValue,
     totalBalancesValue,
