@@ -2,7 +2,7 @@ import { get } from 'lodash';
 import React, { forwardRef, useEffect, useRef } from 'react';
 import { Transition, Transitioning } from 'react-native-reanimated';
 import { magicMemo } from '../../utils';
-import { EmptyAssetList } from '../asset-list';
+import { AssetListSkeleton } from '../asset-list';
 import { Centered } from '../layout';
 import { NoResults } from '../list';
 import { CurrencySelectModalHeaderHeight } from './CurrencySelectModalHeader';
@@ -12,7 +12,7 @@ import { usePrevious } from '@rainbow-me/hooks';
 import styled from '@rainbow-me/styled-components';
 import { position } from '@rainbow-me/styles';
 
-const EmptyCurrencySelectionList = styled(EmptyAssetList).attrs({
+const EmptyCurrencySelectionList = styled(AssetListSkeleton).attrs({
   pointerEvents: 'none',
 })({
   ...position.coverAsObject,
