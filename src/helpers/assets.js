@@ -35,17 +35,12 @@ const addEthPlaceholder = (
   assets,
   includePlaceholder,
   pinnedCoins,
-  nativeCurrency,
-  emptyCollectibles
+  nativeCurrency
 ) => {
   const hasEth = !!ethereumUtils.getAccountAsset(ETH_ADDRESS);
 
   const { genericAssets } = store.getState().data;
-  if (
-    includePlaceholder &&
-    !hasEth &&
-    (assets.length > 0 || !emptyCollectibles)
-  ) {
+  if (includePlaceholder && !hasEth) {
     const { relative_change_24h, value } = genericAssets?.eth?.price || {};
 
     const zeroEth = {
@@ -102,8 +97,7 @@ export const buildCoinsList = (
   isCoinListEdited,
   pinnedCoins,
   hiddenCoins,
-  includePlaceholder = false,
-  emptyCollectibles
+  includePlaceholder = false
 ) => {
   let standardAssets = [],
     pinnedAssets = [],
@@ -114,8 +108,7 @@ export const buildCoinsList = (
     sortedAssets,
     includePlaceholder,
     pinnedCoins,
-    nativeCurrency,
-    emptyCollectibles
+    nativeCurrency
   );
 
   // separate into standard, pinned, small balances, hidden assets
@@ -200,8 +193,7 @@ export const buildBriefCoinsList = (
   isCoinListEdited,
   pinnedCoins,
   hiddenCoins,
-  includePlaceholder = false,
-  emptyCollectibles
+  includePlaceholder = false
 ) => {
   const { assets, smallBalancesValue, totalBalancesValue } = buildCoinsList(
     sortedAssets,
@@ -209,8 +201,7 @@ export const buildBriefCoinsList = (
     isCoinListEdited,
     pinnedCoins,
     hiddenCoins,
-    includePlaceholder,
-    emptyCollectibles
+    includePlaceholder
   );
   const briefAssets = [];
   if (assets) {

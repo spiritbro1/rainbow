@@ -97,7 +97,6 @@ const withBriefBalanceSection = (
   isCoinListEdited,
   pinnedCoins,
   hiddenCoins,
-  collectibles,
   savingsSection,
   uniswapTotal
 ) => {
@@ -107,8 +106,7 @@ const withBriefBalanceSection = (
     isCoinListEdited,
     pinnedCoins,
     hiddenCoins,
-    true,
-    !collectibles.length
+    true
   );
 
   const savingsTotalValue = find(
@@ -168,7 +166,6 @@ const briefBalanceSectionSelector = createSelector(
     isCoinListEditedSelector,
     pinnedCoinsSelector,
     hiddenCoinsSelector,
-    uniqueTokensSelector,
     briefBalanceSavingsSectionSelector,
     uniswapTotalSelector,
   ],
