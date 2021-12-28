@@ -10,7 +10,6 @@ import networkTypes from '@rainbow-me/helpers/networkTypes';
 import { useAccountSettings, useTopMovers } from '@rainbow-me/hooks';
 import { useNavigation } from '@rainbow-me/navigation';
 import Routes from '@rainbow-me/routes';
-import { ethereumUtils } from '@rainbow-me/utils';
 
 const ErrorMessage = ({ colors, children }) => (
   <Centered marginVertical={50}>
@@ -31,11 +30,8 @@ export default function TopMoversSection() {
   const { colors } = useTheme();
   const handlePress = useCallback(
     asset => {
-      const assetFormatted =
-        ethereumUtils.getAccountAsset(asset.address) || asset;
-
       navigate(Routes.EXPANDED_ASSET_SHEET, {
-        asset: assetFormatted,
+        asset,
         fromDiscover: true,
         longFormHeight: initialChartExpandedStateSheetHeight,
         type: 'token',
