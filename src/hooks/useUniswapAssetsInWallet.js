@@ -11,7 +11,7 @@ const useUniswapAssetsInWallet = () => {
   const [uniswapAssets, setUniswapAssets] = useState([]);
   const network = useSelector(networkSelector);
   const isMainnet = network === NetworkTypes.mainnet;
-  const { sortedAssets } = useSelector(sortAssetsByNativeAmountSelector);
+  const sortedAssets = useSelector(sortAssetsByNativeAmountSelector);
   const getUniswapAssets = useCallback(async () => {
     let uniswapAssets;
     if (isMainnet) {

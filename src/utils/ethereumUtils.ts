@@ -536,7 +536,7 @@ async function parseEthereumUrl(data: string) {
     asset = getNetworkNativeAsset(network);
 
     // @ts-ignore
-    if (!asset || asset?.balance.amount === 0) {
+    if (!asset || asset?.balance?.amount === 0) {
       Alert.alert(
         'Ooops!',
         `Looks like you don't have that asset in your wallet...`
@@ -550,7 +550,7 @@ async function parseEthereumUrl(data: string) {
     const targetUniqueId = getUniqueId(ethUrl.target_address, network);
     asset = getAccountAsset(targetUniqueId);
     // @ts-ignore
-    if (!asset || asset?.balance.amount === 0) {
+    if (!asset || asset?.balance?.amount === 0) {
       Alert.alert(
         'Ooops!',
         `Looks like you don't have that asset in your wallet...`

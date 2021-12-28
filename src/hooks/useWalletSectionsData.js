@@ -11,7 +11,8 @@ import { buildBriefWalletSectionsSelector } from '@rainbow-me/helpers/buildWalle
 import { readableUniswapSelector } from '@rainbow-me/helpers/uniswapLiquidityTokenInfoSelector';
 
 export default function useWalletSectionsData() {
-  const { isLoadingAssets, sortedAssets } = useSortedAccountAssets();
+  const sortedAssets = useSortedAccountAssets();
+  const isLoadingAssets = useSelector(state => state.data.isLoadingAssets);
 
   const { nativeCurrency } = useAccountSettings();
   const { uniqueTokens } = useSendableUniqueTokens();

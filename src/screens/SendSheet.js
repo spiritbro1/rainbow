@@ -95,7 +95,7 @@ export default function SendSheet(props) {
   const { goBack, navigate } = useNavigation();
   const { dataAddNewTransaction } = useTransactionConfirmation();
   const updateAssetOnchainBalanceIfNeeded = useUpdateAssetOnchainBalance();
-  const { sortedAssets } = useSortedAccountAssets();
+  const sortedAssets = useSortedAccountAssets();
   const {
     gasFeeParamsBySpeed,
     gasLimit,

@@ -9,20 +9,18 @@ import {
 } from 'lodash';
 import { createSelector } from 'reselect';
 import { sortList } from '../helpers/sortList';
-import { parseAssetsNativeWithTotals } from '@rainbow-me/parsers';
+import { parseAssetsNative } from '@rainbow-me/parsers';
 
 const EMPTY_ARRAY = [];
 
 const assetPricesFromUniswapSelector = state =>
   state.data.assetPricesFromUniswap;
 const accountAssetsDataSelector = state => state.data.accountAssetsData;
-const isLoadingAssetsSelector = state => state.data.isLoadingAssets;
 const nativeCurrencySelector = state => state.settings.nativeCurrency;
 
 const sortAssetsByNativeAmount = (
   accountAssetsData,
   assetPricesFromUniswap,
-  isLoadingAssets,
   nativeCurrency
 ) => {
   let updatedAssets = accountAssetsData;
@@ -51,14 +49,8 @@ const sortAssetsByNativeAmount = (
     });
   }
   let assetsNativePrices = values(updatedAssets);
-  let total = null;
   if (!isEmpty(assetsNativePrices)) {
-    const parsedAssets = parseAssetsNativeWithTotals(
-      assetsNativePrices,
-      nativeCurrency
-    );
-    assetsNativePrices = parsedAssets.assetsNativePrices;
-    total = parsedAssets.total;
+    assetsNativePrices = parseAssetsNative(assetsNativePrices, nativeCurrency);
   }
   const {
     hasValue = EMPTY_ARRAY,
@@ -75,13 +67,7 @@ const sortAssetsByNativeAmount = (
   const sortedShitcoins = sortList(noValue, 'name', 'asc');
   const sortedAssets = sortedAssetsNoShitcoins.concat(sortedShitcoins);
 
-  return {
-    assetsTotal: total,
-    isBalancesSectionEmpty: isEmpty(sortedAssets),
-    isLoadingAssets,
-    sortedAssets,
-    sortedAssetsCount: sortedAssets.length,
-  };
+  return sortedAssets;
 };
 
 const groupAssetsByMarketValue = assets =>
@@ -91,7 +77,6 @@ export const sortAssetsByNativeAmountSelector = createSelector(
   [
     accountAssetsDataSelector,
     assetPricesFromUniswapSelector,
-    isLoadingAssetsSelector,
     nativeCurrencySelector,
   ],
   sortAssetsByNativeAmount
