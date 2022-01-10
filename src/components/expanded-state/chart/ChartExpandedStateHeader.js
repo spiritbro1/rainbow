@@ -34,7 +34,7 @@ export default function ChartExpandedStateHeader({
   latestChange,
   latestPrice = noPriceData,
   priceRef,
-  chartTimeSharedValue,
+  chartTimeDefaultValue,
   showChart,
   testID,
   overrideValue = false,
@@ -53,16 +53,7 @@ export default function ChartExpandedStateHeader({
     [latestPrice, nativeCurrency]
   );
 
-  const priceSharedValue = useSharedValue('');
-
-  // TODO (terry): Try to use useImmediateEffect here
-  useEffect(() => {
-    if (isNoPriceData) {
-      priceSharedValue.value = '';
-    } else {
-      priceSharedValue.value = price;
-    }
-  }, [price, isNoPriceData, priceSharedValue]);
+  const defaultPriceValue = isNoPriceData ? '' : price;
 
   const title = isPool ? `${asset.tokenNames} Pool` : asset?.name;
 
@@ -101,7 +92,7 @@ export default function ChartExpandedStateHeader({
             isNoPriceData={isNoPriceData}
             isPool={isPool}
             priceRef={priceRef}
-            priceSharedValue={priceSharedValue}
+            priceValue={defaultPriceValue}
           />
           {showPriceChange && (
             <ChartPercentChangeLabel
@@ -133,7 +124,7 @@ export default function ChartExpandedStateHeader({
           </ChartHeaderSubtitle>
           {showPriceChange && (
             <ChartDateLabel
-              chartTimeSharedValue={chartTimeSharedValue}
+              chartTimeDefaultValue={chartTimeDefaultValue}
               dateRef={dateRef}
             />
           )}
