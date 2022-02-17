@@ -37,6 +37,8 @@ import { useENSProfileForm, useKeyboardHeight } from '@rainbow-me/hooks';
 import Routes from '@rainbow-me/routes';
 
 const AnimatedBox = Animated.createAnimatedComponent(Box);
+const avatarSize = 70;
+const alpha = '33';
 
 export const bottomActionHeight = ios ? 270 : 250;
 
@@ -64,9 +66,6 @@ export default function ENSAssignRecordsSheet() {
     ],
   });
 
-  const avatarRadius = 35;
-  const alpha = '33';
-
   return (
     <AccentColorProvider color={accentColor}>
       <Box
@@ -91,11 +90,12 @@ export default function ENSAssignRecordsSheet() {
               <Box
                 alignItems="center"
                 background="accent"
-                borderRadius={avatarRadius}
-                height={{ custom: avatarRadius * 2 }}
+                borderRadius={avatarSize / 2}
+                height={{ custom: avatarSize }}
                 justifyContent="center"
+                shadow="12px heavy accent"
                 top={{ custom: 105 }}
-                width={{ custom: avatarRadius * 2 }}
+                width={{ custom: avatarSize }}
               >
                 <AccentColorProvider color={colors.white}>
                   <Text color="accent" size="23px" weight="heavy">
