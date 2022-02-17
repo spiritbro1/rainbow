@@ -37,10 +37,10 @@ import { useENSProfileForm, useKeyboardHeight } from '@rainbow-me/hooks';
 import Routes from '@rainbow-me/routes';
 
 const AnimatedBox = Animated.createAnimatedComponent(Box);
-const avatarSize = 70;
-const alpha = '33';
 
 export const bottomActionHeight = ios ? 270 : 250;
+const avatarSize = 70;
+const alpha = '33';
 
 export default function ENSAssignRecordsSheet() {
   const { colors } = useTheme();
